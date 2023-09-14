@@ -34,7 +34,7 @@ import components.map.MapSecondary;
  *          (pf)
  * </pre>
  *
- * @author Put your name here
+ * @author Nicholas McCracken and Jack Mikesell
  *
  */
 public class Map4<K, V> extends MapSecondary<K, V> {
@@ -75,10 +75,21 @@ public class Map4<K, V> extends MapSecondary<K, V> {
     private static int mod(int a, int b) {
         assert b > 0 : "Violation of: b > 0";
 
-        // TODO - fill in body
+        /*
+         * If number being reduced is positive, the modulus operator will
+         * fucntion as expected.
+         */
+        int mod = a % b;
 
-        // This line added just to make the component compilable.
-        return 0;
+        /*
+         * If the number being reduced is negative, the value of the modulus
+         * needs to be added to the result via clock arithimetic rules.
+         */
+        if (mod < 0) {
+            mod += b;
+        }
+
+        return mod;
     }
 
     /**
