@@ -4,6 +4,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import components.map.Map;
+import components.map.Map.Pair;
 
 /**
  * JUnit test fixture for {@code Map<String, String>}'s constructor and kernel
@@ -82,13 +83,13 @@ public abstract class MapTest {
         return map;
     }
 
-    // TODO - add test cases for constructor, add, remove, removeAny, value,
-    // hasKey, and size
-
     /*
      * Test cases for constructors
      */
 
+    /**
+     * Test no argument constructor with no arguments.
+     */
     @Test
     public final void testNoArgumentConstructor() {
         /*
@@ -106,6 +107,9 @@ public abstract class MapTest {
      * Test cases for kernel methods
      */
 
+    /**
+     * Test add by adding one pair when map is initialized as empty.
+     */
     @Test
     public final void testAddEmptyOne() {
         /*
@@ -124,6 +128,9 @@ public abstract class MapTest {
         assertEquals(mapExpected, map);
     }
 
+    /**
+     * Test add by adding multiple pairs when map is initialized as empty.
+     */
     @Test
     public final void testAddEmptyMultiple() {
         /*
@@ -143,6 +150,9 @@ public abstract class MapTest {
         assertEquals(mapExpected, map);
     }
 
+    /**
+     * Test add by adding one pair to a non empty map.
+     */
     @Test
     public final void testAddNonEmptyOne() {
         /*
@@ -161,6 +171,9 @@ public abstract class MapTest {
         assertEquals(mapExpected, map);
     }
 
+    /**
+     * Test add by adding multiple pairs to a non empty map.
+     */
     @Test
     public final void testAddNonEmptyMultiple() {
         /*
@@ -180,6 +193,10 @@ public abstract class MapTest {
         assertEquals(mapExpected, map);
     }
 
+    /**
+     * Test remove by removing the only pair which will make a non empty map
+     * empty.
+     */
     @Test
     public final void testRemoveEmptyOne() {
         /*
@@ -200,6 +217,10 @@ public abstract class MapTest {
         assertEquals(elementExpected, element);
     }
 
+    /**
+     * Test remove by removing multiple pairs which will make a non empty map
+     * empty.
+     */
     @Test
     public final void testRemoveEmptyMultiple() {
         /*
@@ -224,6 +245,9 @@ public abstract class MapTest {
         assertEquals(elementExpected2, element2);
     }
 
+    /**
+     * Test remove by removing one pair from a map that will remain non empty.
+     */
     @Test
     public final void testRemoveNonEmptyOne() {
         /*
@@ -245,6 +269,10 @@ public abstract class MapTest {
         assertEquals(elementExpected, element);
     }
 
+    /**
+     * Test remove by removing multiple pairs from a map that will remain non
+     * empty.
+     */
     @Test
     public final void testRemoveNonEmptyMultiple() {
         /*
@@ -269,6 +297,10 @@ public abstract class MapTest {
         assertEquals(elementExpected2, element2);
     }
 
+    /**
+     * Test removeAny by removing the only pair from a non empty map thereby
+     * making it empty.
+     */
     @Test
     public final void testRemoveAnyEmptyOne() {
         /*
@@ -289,6 +321,10 @@ public abstract class MapTest {
         assertEquals(elementExpected, element);
     }
 
+    /**
+     * Test removeAny by removing multiple pairs from a non empty map thereby
+     * making it empty.
+     */
     @Test
     public final void testRemoveAnyEmptyMultiple() {
         /*
@@ -308,6 +344,9 @@ public abstract class MapTest {
         assertEquals(mapExpected, map);
     }
 
+    /**
+     * Test removeAny by removing a random pair from a non empty map.
+     */
     @Test
     public final void testRemoveAnyNonEmptyOne() {
         /*
@@ -332,6 +371,9 @@ public abstract class MapTest {
         assertEquals(mapExpected, map);
     }
 
+    /**
+     * Test removeAny by removing multiple random pairs from a non empty map.
+     */
     @Test
     public final void testRemoveAnyNonEmptyMultiple() {
         /*
@@ -359,6 +401,9 @@ public abstract class MapTest {
         assertEquals(mapExpected, map);
     }
 
+    /**
+     * Test hasKey by checking the only pair available in a map.
+     */
     @Test
     public final void testHasKeyAllOne() {
         /*
@@ -375,6 +420,9 @@ public abstract class MapTest {
         assertTrue(contained);
     }
 
+    /**
+     * Test hasKey by checking each of multiple pairs available in a map.
+     */
     @Test
     public final void testHasKeyAllMultiple() {
         /*
@@ -394,6 +442,9 @@ public abstract class MapTest {
         assertTrue(contained2);
     }
 
+    /**
+     * Test hasKey by checking one of many pairs available in a map.
+     */
     @Test
     public final void testHasKeySomeOne() {
         /*
@@ -411,6 +462,9 @@ public abstract class MapTest {
         assertTrue(contained);
     }
 
+    /**
+     * Test hasKey by checking multiple pairs of many pairs available in a map.
+     */
     @Test
     public final void testHasKeySomeMultiple() {
         /*
@@ -430,6 +484,9 @@ public abstract class MapTest {
         assertTrue(contained2);
     }
 
+    /**
+     * Test value by checking the value of the only pair available in a map.
+     */
     @Test
     public final void testValueAllOne() {
         /*
@@ -446,6 +503,9 @@ public abstract class MapTest {
         assertEquals("light", value);
     }
 
+    /**
+     * Test value by checking the value of all of the pairs available in a map.
+     */
     @Test
     public final void testValueAllMultiple() {
         /*
@@ -465,6 +525,9 @@ public abstract class MapTest {
         assertEquals("dark", value2);
     }
 
+    /**
+     * Test value by checking the value of one of many pairs available in a map.
+     */
     @Test
     public final void testValueSomeOne() {
         /*
@@ -482,6 +545,10 @@ public abstract class MapTest {
         assertEquals("dark", value);
     }
 
+    /**
+     * Test value by checking the value of multiple pairs of many available in a
+     * map.
+     */
     @Test
     public final void testValueSomeMultiple() {
         /*
@@ -501,6 +568,9 @@ public abstract class MapTest {
         assertEquals("dark", value2);
     }
 
+    /**
+     * Test size by checking the size of an empty map.
+     */
     @Test
     public final void testSizeEmpty() {
         /*
@@ -517,6 +587,9 @@ public abstract class MapTest {
         assertEquals(0, mapLength);
     }
 
+    /**
+     * Test size by checking the size of a map with a single pair.
+     */
     @Test
     public final void testSizeOne() {
         /*
@@ -533,6 +606,9 @@ public abstract class MapTest {
         assertEquals(1, mapLength);
     }
 
+    /**
+     * Test size by checking the size of a map with a three pairs.
+     */
     @Test
     public final void testSizeMultiple() {
         /*
@@ -548,6 +624,54 @@ public abstract class MapTest {
          * Assert that values of variables match expectations
          */
         assertEquals(3, mapLength);
+    }
+
+    /**
+     * Test size by checking the if the size of a map with a three pairs stays
+     * the same after a specific pair has been removed and readded to the map.
+     */
+    @Test
+    public final void testSizeAddAndRemoveTarget() {
+        /*
+         * Set up variables
+         */
+        Map<String, String> map = this.createFromArgsTest("red", "light",
+                "green", "light", "blue", "light");
+        /*
+         * Call method under test
+         */
+        int preMapLength = map.size();
+        Pair<String, String> removed = map.remove("red");
+        map.add(removed.key(), removed.value());
+        int postMapLength = map.size();
+        /*
+         * Assert that values of variables match expectations
+         */
+        assertEquals(preMapLength, postMapLength);
+    }
+
+    /**
+     * Test size by checking the if the size of a map with a three pairs stays
+     * the same after a random pair has been removed and readded to the map.
+     */
+    @Test
+    public final void testSizeAddAndRemoveRandom() {
+        /*
+         * Set up variables
+         */
+        Map<String, String> map = this.createFromArgsTest("red", "light",
+                "green", "light", "blue", "light");
+        /*
+         * Call method under test
+         */
+        int preMapLength = map.size();
+        Pair<String, String> removed = map.removeAny();
+        map.add(removed.key(), removed.value());
+        int postMapLength = map.size();
+        /*
+         * Assert that values of variables match expectations
+         */
+        assertEquals(preMapLength, postMapLength);
     }
 
 }

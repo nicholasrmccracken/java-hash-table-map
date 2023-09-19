@@ -2,6 +2,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import components.map.Map;
+import components.map.Map2;
 import components.map.MapSecondary;
 
 /**
@@ -114,8 +115,11 @@ public class Map4<K, V> extends MapSecondary<K, V> {
          * conversion, though it cannot fail.
          */
         this.hashTable = new Map[hashTableSize];
+        this.size = 0;
 
-        // TODO - fill in rest of body
+        for (int i = 0; i < hashTableSize; i++) {
+            this.hashTable[i] = new Map2<>();
+        }
 
     }
 
@@ -127,9 +131,7 @@ public class Map4<K, V> extends MapSecondary<K, V> {
      * No-argument constructor.
      */
     public Map4() {
-
-        // TODO - fill in body
-
+        this.createNewRep(DEFAULT_HASH_TABLE_SIZE);
     }
 
     /**
@@ -141,9 +143,7 @@ public class Map4<K, V> extends MapSecondary<K, V> {
      * @ensures this = {}
      */
     public Map4(int hashTableSize) {
-
-        // TODO - fill in body
-
+        this.createNewRep(hashTableSize);
     }
 
     /*
@@ -193,8 +193,15 @@ public class Map4<K, V> extends MapSecondary<K, V> {
         assert value != null : "Violation of: value is not null";
         assert !this.hasKey(key) : "Violation of: key is not in DOMAIN(this)";
 
-        // TODO - fill in body
-
+        /*
+         * Determine bucket which pair needs to be placed into using the
+         * hashcode of the key and the mod kernel method such that the map at
+         * the bucket of interest can be accessed and have the key value pair
+         * added to it. Increment size to account for the newly added pair.
+         */
+        this.size++;
+        this.hashTable[mod(key.hashCode(), this.hashTable.length)].add(key,
+                value);
     }
 
     @Override
@@ -202,20 +209,37 @@ public class Map4<K, V> extends MapSecondary<K, V> {
         assert key != null : "Violation of: key is not null";
         assert this.hasKey(key) : "Violation of: key is in DOMAIN(this)";
 
-        // TODO - fill in body
-
-        // This line added just to make the component compilable.
-        return null;
+        /*
+         * Determine bucket where key resides based on it's hashcode value and
+         * the index returned from the mod kernel method such that the map which
+         * contains the key can be accessed and have the key value pair removed
+         * from it. Decrement size to account for the now removed pair.
+         */
+        this.size--;
+        return this.hashTable[mod(key.hashCode(), this.hashTable.length)]
+                .remove(key);
     }
 
     @Override
     public final Pair<K, V> removeAny() {
         assert this.size() > 0 : "Violation of: this /= empty_set";
 
-        // TODO - fill in body
+        /*
+         * Iterate through hash table until a bucket with a non empty map is
+         * found.
+         */
+        int i = 0;
+        while (this.hashTable[i].size() == 0) {
+            i++;
+        }
 
-        // This line added just to make the component compilable.
-        return null;
+        /*
+         * Remove any pair from the map contained in first bucket found which
+         * has at least one pair. Decrement size to account for the now removed
+         * pair.
+         */
+        this.size--;
+        return this.hashTable[i].removeAny();
     }
 
     @Override
@@ -223,29 +247,39 @@ public class Map4<K, V> extends MapSecondary<K, V> {
         assert key != null : "Violation of: key is not null";
         assert this.hasKey(key) : "Violation of: key is in DOMAIN(this)";
 
-        // TODO - fill in body
-
-        // This line added just to make the component compilable.
-        return null;
+        /*
+         * Determine bucket where key resides based on it's hashcode value and
+         * the index returned from the mod kernel method such that the map which
+         * contains the key can be accessed and the value corresponding to said
+         * key is returned.
+         */
+        return this.hashTable[mod(key.hashCode(), this.hashTable.length)]
+                .value(key);
     }
 
     @Override
     public final boolean hasKey(K key) {
         assert key != null : "Violation of: key is not null";
 
-        // TODO - fill in body
-
-        // This line added just to make the component compilable.
-        return false;
+        /*
+         * Determine bucket where key would reside if it existed based on it's
+         * hashcode value and the index returned from the mod kernel method such
+         * that the map which would contain the key if it exists can be accessed
+         * and it can be determined if the key exists within the map at the
+         * bucket of interest.
+         */
+        return this.hashTable[mod(key.hashCode(), this.hashTable.length)]
+                .hasKey(key);
     }
 
     @Override
     public final int size() {
-
-        // TODO - fill in body
-
-        // This line added just to make the component compilable.
-        return 0;
+        /*
+         * Return instantance variable for size which is being upkept in the
+         * add, remove, and removeAny kernel methods to reflect the number of
+         * pairs currently residing in the hashtable's maps.
+         */
+        return this.size;
     }
 
     @Override
