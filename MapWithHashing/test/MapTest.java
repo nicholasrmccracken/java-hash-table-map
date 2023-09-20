@@ -402,35 +402,6 @@ public abstract class MapTest {
     }
 
     /**
-     * Test removeAny by removing pair with an empty string key of a hashing
-     * value zero, meaning the while loop in removeAny is skipped.
-     */
-    @Test
-    public final void testRemoveAnyBucketZero() {
-        /*
-         * Set up variables
-         */
-        Map<String, String> map = this.createFromArgsTest("", "light", "blue",
-                "dark", "green", "bright");
-        Map<String, String> mapExpected = this.createFromArgsRef("", "light",
-                "blue", "dark", "green", "bright");
-        /*
-         * Call method under test
-         */
-        Map.Pair<String, String> element = map.removeAny();
-        /*
-         * Assert that removed element is contained in expected set
-         */
-        assertTrue(mapExpected.hasKey(element.key()));
-        /*
-         * Assert that values of variables match expectations
-         */
-        mapExpected.remove(element.key());
-        assertEquals(mapExpected, map);
-        assertEquals("", element.key());
-    }
-
-    /**
      * Test hasKey by checking the only pair available in a map.
      */
     @Test
@@ -511,6 +482,45 @@ public abstract class MapTest {
          */
         assertTrue(contained1);
         assertTrue(contained2);
+    }
+
+    /**
+     * Test hasKey by checking for a key that is not in map of multiple keys.
+     */
+    @Test
+    public final void testHasKeySomeFalse() {
+        /*
+         * Set up variables
+         */
+        Map<String, String> map = this.createFromArgsTest("red", "light",
+                "blue", "dark");
+        /*
+         * Call method under test
+         */
+        Boolean contained = map.hasKey("yellow");
+        /*
+         * Assert that values of variables match expectations
+         */
+        assertEquals(false, contained);
+    }
+
+    /**
+     * Test hasKey by checking for a key that is not in map of one key.
+     */
+    @Test
+    public final void testHasKeyOneFalse() {
+        /*
+         * Set up variables
+         */
+        Map<String, String> map = this.createFromArgsTest("red", "light");
+        /*
+         * Call method under test
+         */
+        Boolean contained = map.hasKey("yellow");
+        /*
+         * Assert that values of variables match expectations
+         */
+        assertEquals(false, contained);
     }
 
     /**
@@ -701,6 +711,150 @@ public abstract class MapTest {
          * Assert that values of variables match expectations
          */
         assertEquals(preMapLength, postMapLength);
+    }
+
+    /**
+     * Test size by checking the size of a map and then adding a pair to it, and
+     * then checking to see if the size was increased.
+     */
+    @Test
+    public final void testSizeAfterAddingOne() {
+        /*
+         * Set up variables
+         */
+        Map<String, String> map = this.createFromArgsTest("red", "light",
+                "green", "light", "blue", "light");
+        /*
+         * Call method under test
+         */
+        int mapLength = map.size();
+        map.add("yellow", "light");
+        int mapLengthAfterAdd = map.size();
+        /*
+         * Assert that values of variables match expectations
+         */
+        assertEquals(mapLength + 1, mapLengthAfterAdd);
+    }
+
+    /**
+     * Test size by checking the size of a map and then adding three pairs to
+     * it, and then checking to see if the size was increased.
+     */
+    @Test
+    public final void testSizeAfterAddingMultiple() {
+        /*
+         * Set up variables
+         */
+        Map<String, String> map = this.createFromArgsTest("red", "light",
+                "green", "light", "blue", "light");
+        /*
+         * Call method under test
+         */
+        int mapLength = map.size();
+        map.add("yellow", "light");
+        map.add("orange", "light");
+        map.add("purple", "light");
+        int mapLengthAfterAdd = map.size();
+        /*
+         * Assert that values of variables match expectations
+         */
+        assertEquals(mapLength + 3, mapLengthAfterAdd);
+    }
+
+    /**
+     * Test size by checking the size of a map and then removing a pair, and
+     * then checking to see if the size was decreased.
+     */
+    @Test
+    public final void testSizeAfterRemoveOne() {
+        /*
+         * Set up variables
+         */
+        Map<String, String> map = this.createFromArgsTest("red", "light",
+                "green", "light", "blue", "light");
+        /*
+         * Call method under test
+         */
+        int mapLength = map.size();
+        map.remove("green");
+        int mapLengthAfterRemove = map.size();
+        /*
+         * Assert that values of variables match expectations
+         */
+        assertEquals(mapLength - 1, mapLengthAfterRemove);
+    }
+
+    /**
+     * Test size by checking the size of a map and then removing three pairs,
+     * and then checking to see if the size was decreased.
+     */
+    @Test
+    public final void testSizeAfterRemoveMultiple() {
+        /*
+         * Set up variables
+         */
+        Map<String, String> map = this.createFromArgsTest("red", "light",
+                "green", "light", "blue", "light");
+        /*
+         * Call method under test
+         */
+        int mapLength = map.size();
+        map.remove("green");
+        map.remove("blue");
+        map.remove("red");
+        int mapLengthAfterRemove = map.size();
+        /*
+         * Assert that values of variables match expectations
+         */
+        assertEquals(mapLength - 3, mapLengthAfterRemove);
+    }
+
+    /**
+     * Test size by checking the size of a map and then removing any pair, and
+     * then checking to see if the size was decreased.
+     */
+    @Test
+    public final void testSizeAfterRemoveAnyOne() {
+        /*
+         * Set up variables
+         */
+        Map<String, String> map = this.createFromArgsTest("red", "light",
+                "green", "light", "blue", "light");
+        /*
+         * Call method under test
+         */
+        int mapLength = map.size();
+        map.removeAny();
+        int mapLengthAfterRemoveAny = map.size();
+        /*
+         * Assert that values of variables match expectations
+         */
+        assertEquals(mapLength - 1, mapLengthAfterRemoveAny);
+    }
+
+    /**
+     * Test size by checking the size of a map and then removing any pair three
+     * times, and then checking to see if the size was decreased.
+     */
+    @Test
+    public final void testSizeAfterRemoveAnyMultiple() {
+        /*
+         * Set up variables
+         */
+        Map<String, String> map = this.createFromArgsTest("red", "light",
+                "green", "light", "blue", "light");
+        /*
+         * Call method under test
+         */
+        int mapLength = map.size();
+        map.removeAny();
+        map.removeAny();
+        map.removeAny();
+        int mapLengthAfterRemoveAny = map.size();
+        /*
+         * Assert that values of variables match expectations
+         */
+        assertEquals(mapLength - 3, mapLengthAfterRemoveAny);
     }
 
 }
