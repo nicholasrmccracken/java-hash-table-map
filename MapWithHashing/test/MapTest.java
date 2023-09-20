@@ -402,6 +402,35 @@ public abstract class MapTest {
     }
 
     /**
+     * Test removeAny by removing pair with an empty string key of a hashing
+     * value zero, meaning the while loop in removeAny is skipped.
+     */
+    @Test
+    public final void testRemoveAnyBucketZero() {
+        /*
+         * Set up variables
+         */
+        Map<String, String> map = this.createFromArgsTest("", "light", "blue",
+                "dark", "green", "bright");
+        Map<String, String> mapExpected = this.createFromArgsRef("", "light",
+                "blue", "dark", "green", "bright");
+        /*
+         * Call method under test
+         */
+        Map.Pair<String, String> element = map.removeAny();
+        /*
+         * Assert that removed element is contained in expected set
+         */
+        assertTrue(mapExpected.hasKey(element.key()));
+        /*
+         * Assert that values of variables match expectations
+         */
+        mapExpected.remove(element.key());
+        assertEquals(mapExpected, map);
+        assertEquals("", element.key());
+    }
+
+    /**
      * Test hasKey by checking the only pair available in a map.
      */
     @Test
